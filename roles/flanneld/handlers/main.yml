@@ -1,0 +1,4 @@
+---
+# handlers file for flanneld
+- name: restart flanneld
+  service: name=flanneld state=restarted

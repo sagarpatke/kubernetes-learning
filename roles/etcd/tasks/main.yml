@@ -1,0 +1,9 @@
+---
+# tasks file for etcd
+- name: install etcd
+  package: name=etcd state=latest
+- name: configure etcd
+  template: src=etc/etcd/etcd.conf dest=/etc/etcd/etcd.conf owner="root" group="root" mode="a=rw,g=r,o=r"
+  notify: restart etcd
+- name: start etcd
+  service: name=etcd state=started enabled=true

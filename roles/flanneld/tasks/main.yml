@@ -1,0 +1,9 @@
+---
+# tasks file for flanneld
+- name: install flanneld
+  package: name=flannel state=latest
+- name: configure flanneld
+  template: src=etc/sysconfig/flanneld dest=/etc/sysconfig/flanneld owner=root group=root mode="a=rw,g=r,o=r"
+  notify: restart flanneld
+- name: start flanneld
+  service: name=flanneld state=started enabled=true

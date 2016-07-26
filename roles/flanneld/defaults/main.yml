@@ -1,0 +1,4 @@
+---
+# defaults file for flanneld
+flannel_etcd: http://127.0.0.1:2379
+flannel_etcd_key: /atomic.io/network
