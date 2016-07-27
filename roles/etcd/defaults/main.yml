@@ -1,4 +1,5 @@
 ---
 # defaults file for etcd
-etcd_bind_host: 'localhost'
-etcd_bind_port: '2379'
+etcd_bind_address: '127.0.0.1'
+etcd_host: '127.0.0.1'
+etcd_port: '2379'

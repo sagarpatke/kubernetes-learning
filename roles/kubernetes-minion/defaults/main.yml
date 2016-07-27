@@ -1,5 +1,0 @@
----
-# defaults file for kubernetes-minion
-kube_master_host: 127.0.0.1
-kube_master_port: 8080
-kubelet_hostname: 127.0.0.1

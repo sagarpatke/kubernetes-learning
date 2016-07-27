@@ -3,4 +3,4 @@
   become: true
   roles:
     - flanneld
-    - kubernetes-minion
+    - kubernetes

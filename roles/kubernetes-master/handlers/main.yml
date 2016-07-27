@@ -1,4 +1,0 @@
----
-# handlers file for kubernetes-master
-- name: restart apiserver
-  service: name=kube-apiserver state=restarted

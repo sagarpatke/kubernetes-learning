@@ -1,0 +1,49 @@
+---
+# tasks file for kubernetes
+- name: flush handlers
+  meta: flush_handlers
+- name: install ntp
+  package: name=ntp state=latest
+- name: start ntpd
+  service: name=ntpd state=started enabled=true
+- name: install kubernetes
+  package: name=kubernetes state=latest
+- name: configure kubernetes apiserver
+  template: src=etc/kubernetes/apiserver dest=/etc/kubernetes/apiserver owner=root group=root mode="a=rw,g=r,o=r"
+  notify:
+    - restart apiserver
+    - restart controller-manager
+    - restart scheduler
+  when: kubernetes_master == 'yes'
+- name: configure kubernetes
+  template: src=etc/kubernetes/config dest=/etc/kubernetes/config owner=root group=root mode="a=rw,g=r,o=r"
+  notify:
+    - restart kube-proxy
+    - restart kubelet
+  when: kubernetes_minion == 'yes'
+- name: configure kubelet
+  template: src=etc/kubernetes/kubelet dest=/etc/kubernetes/kubelet owner=root group=root mode="a=rw,g=r,o=r"
+  notify:
+    - restart kube-proxy
+    - restart kubelet
+  when: kubernetes_minion == 'yes'
+- name: flush handlers
+  meta: flush_handlers
+- name: start apiserver
+  service: name=kube-apiserver state=started enabled=true
+  when: kubernetes_master == 'yes'
+- name: start controller-manager
+  service: name=kube-controller-manager state=started enabled=true
+  when: kubernetes_master == 'yes'
+- name: start scheduler
+  service: name=kube-scheduler state=started enabled=true
+  when: kubernetes_master == 'yes'
+- name: start docker
+  service: name=docker state=started enabled=true
+  when: kubernetes_minion == 'yes'
+- name: start kube-proxy
+  service: name=kube-proxy state=started enabled=true
+  when: kubernetes_minion == 'yes'
+- name: start kubelet
+  service: name=kubelet state=started enabled=true
+  when: kubernetes_minion == 'yes'

@@ -1,8 +1,0 @@
----
-# defaults file for kubernetes-master
-kube_api_bind_address: '127.0.0.1'
-kube_api_bind_port: '8080'
-kubelet_port: 10250
-kube_etcd_server: 'http://127.0.0.1:2379'
-kube_service_addresses: '10.254.0.0/16'
-flanneld_network_key: '/atomic.io/network'

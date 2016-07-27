@@ -1,0 +1,13 @@
+---
+# defaults file for kubernetes
+master: true
+minion: true
+kube_apiserver_bind_address: '127.0.0.1'
+kube_apiserver_host: '127.0.0.1'
+kube_apiserver_port: '8080'
+kube_apiserver_service_ip_range: '10.254.0.0/16'
+kubernetes_master: 'yes'
+kubernetes_minion: 'yes'
+kubelet_bind_address: '127.0.0.1'
+kubelet_host: '127.0.0.1'
+kubelet_port: '10250'

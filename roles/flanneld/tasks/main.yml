@@ -1,9 +1,19 @@
 ---
 # tasks file for flanneld
-- name: install flanneld
+- name: install flannel
   package: name=flannel state=latest
-- name: configure flanneld
+- name: configure flannel
   template: src=etc/sysconfig/flanneld dest=/etc/sysconfig/flanneld owner=root group=root mode="a=rw,g=r,o=r"
   notify: restart flanneld
+- name: configure flannel network
+  uri:
+    url: "http://{{etcd_host}}:{{etcd_port}}/v2/keys{{flanneld_key}}/config"
+    method: PUT
+    body: "value={\"Network\": \"172.17.0.0/16\"}"
+    status_code: 200,201
+  when: flanneld_configure_network == 'yes'
+  notify: restart flanneld
+- name: flush handlers
+  meta: flush_handlers
 - name: start flanneld
   service: name=flanneld state=started enabled=true
